@@ -1,0 +1,19 @@
+twig:
+    file_name_pattern: '*.twig'
+    paths: # TODO: Ajouter le namespace emails et admin avec fagathe/phplib
+    globals:
+        APP_NAME: '%env(APP_NAME)%'
+        APP_VERSION: '%env(APP_VERSION)%'
+        APP_SEO_TITLE: '%env(APP_SEO_TITLE)%'
+        APP_LINKEDIN_URL: '%env(APP_LINKEDIN_URL)%'
+        APP_GITHUB_URL: '%env(APP_GITHUB_URL)%'
+        APP_PHONE_NUMBER: '%env(APP_PHONE_NUMBER)%'
+        APP_EMAIL_CONTACT: '%env(APP_EMAIL_CONTACT)%'
+
+    form_themes: 
+        # - '@FOSCKEditor/Form/ckeditor_widget.html.twig'
+        - 'bootstrap_5_layout.html.twig'
+
+when@test:
+    twig:
+        strict_variables: true

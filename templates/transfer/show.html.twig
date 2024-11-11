@@ -1,0 +1,132 @@
+{% extends "layouts/app.html.twig" %}
+
+{% block content %}
+  <section class="section container-fluid container-xxl" style="min-height: 66vh;">
+    {% if transfer == null %}
+      <!-- Warning Alert -->
+      <div class="alert alert-warning alert-additional shadow fade show mb-0" role="alert">
+        <div class="alert-body">
+          <div class="d-flex">
+            <div class="flex-shrink-0 me-3">
+              <i class="ri-alert-line fs-16 align-middle"></i>
+            </div>
+            <div class="flex-grow-1">
+              <h5 class="alert-heading">Ooops</h5>
+              <p class="mb-0">Ce lien semble éronné.</p>
+            </div>
+          </div>
+        </div>
+        <div class="alert-content">
+          <p class="mb-0">Veuillez contacter la personne qui vous a envoyée ce transfer.</p>
+        </div>
+      </div>
+    {% endif %} 
+    {% if transfer.isExpired() %}
+      <!-- Warning Alert -->
+      <div class="alert alert-warning alert-additional shadow fade show mb-0" role="alert">
+        <div class="alert-body">
+          <div class="d-flex">
+            <div class="flex-shrink-0 me-3">
+              <i class="ri-alert-line fs-16 align-middle"></i>
+            </div>
+            <div class="flex-grow-1">
+              <h5 class="alert-heading">Ooops</h5>
+              <p class="mb-0">Ce lien que vous avez utilisé a expiré.</p>
+            </div>
+          </div>
+        </div>
+        <div class="alert-content">
+          <p class="mb-0">Veuillez contacter la personne qui vous a envoyée ce transfer.</p>
+        </div>
+      </div>
+    {% else %}
+      <div class="row align-items-center mb-2">
+        <h1 class="h2 col-auto">
+          {{ transfer.name }}
+        </h1>
+        <span class="ms-3 col-auto d-inline-block badge bg-primary-subtle text-primary fs-12">Expire le {{ transfer.expiredAt|date('d-m-Y') }}</span>
+      </div>
+      <div class="row">
+        {% if transfer.message %}
+          <div class="w-100 bg-light mb-4 rounded p-3">
+            {{ transfer.message|capitalize }}
+          </div>
+        {% endif %}
+      </div> 
+
+      <div class="table-responsive table-card">
+        <table class="table table-nowrap table-striped-columns my-2">
+          <thead class="table-light">
+              <tr>
+                  <th scope="col">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="" id="selectAllFiles">
+                      <label class="form-check-label" for="selectAllFiles"></label>
+                    </div>
+                  </th>
+                  <th scope="col">Nom du fichier</th>
+                  <th scope="col">Taille</th>
+                  <th scope="col">Actions</th>   
+              </tr>
+          </thead>
+          <tbody>
+            {% for file in transfer.files %}
+              <tr>
+                <td>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="cardtableCheck01">
+                        <label class="form-check-label" for="cardtableCheck01"></label>
+                    </div>
+                </td>
+                <td> {{ file|file_widget }} </td>
+                <td> {{ file.niceSize }} </td>
+                <td>
+                  {% if file.isPreviewable %}
+                    <button 
+                      onclick="preview(event);" 
+                      data-file-type="{{ skip_accent(file.type)|lower }}" 
+                      data-file-path="{{ file.path }}" 
+                      data-file-original-name="{{ file.originalName }}"
+                      data-file-mime-type="{{ file.mimeType }}"
+                      type="button" 
+                      class="btn btn-ghost-primary btn-icon" 
+                      data-bs-toggle="modal" 
+                      data-bs-target="#previewModal"
+                      title="Visualiser le fichier"
+                    ><i class="fs-13 ri-external-link-line"></i></button>
+                  {% endif %}
+                  <a href="{{ path('app_transfer_file_download', {id: file.id}) }}" class="btn btn-ghost-secondary btn-icon" title="Télécharger le fichier"><i class="fs-13 ri-download-2-line"></i></a>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% endif %}
+  </section>
+  <div id="previewModal" class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="previewModalLabel" aria-modal="true" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div id="mediaContainer">
+            </div>
+          </div>
+          <div class="modal-footer justify-content-center">
+            <button type="button" class="btn btn-ghost-danger" data-bs-dismiss="modal">
+              <i class="ri-close-line me-1 align-middle"></i>
+              Fermer
+            </button>
+          </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div>
+{% endblock %}
+
+{% block js %}
+
+<script src="{{ asset('/js/transfer.js') }}"></script>
+
+{% endblock %}

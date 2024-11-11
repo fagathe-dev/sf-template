@@ -1,0 +1,77 @@
+.form-group {
+  margin-block-end: calc(1.3333333333vh + 5px);
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  min-height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  width: 100%;
+  background-color: #f5f5f5;
+}
+.wrapper .navbar {
+  width: 100%;
+}
+.wrapper .form-control-plaintext {
+  font-size: 2rem;
+}
+.wrapper .cardContainer {
+  margin-top: 10px;
+}
+.wrapper .cardContainer .card {
+  border: none;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
+  transition: all 500ms ease-in-out;
+}
+.wrapper .cardContainer .card:hover {
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+.wrapper .cardContainer .card .card__link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.wrapper #fixedBottomButton {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 40px;
+  height: 40px;
+  z-index: 1000;
+  font-size: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column nowrap;
+}
+.wrapper #fixedBottomButton span {
+  display: none;
+}
+.wrapper #fixedBottomButton i {
+  display: unset;
+}
+.wrapper #fixedBottomButton:hover {
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.09);
+}
+@media screen and (min-width: 992px) {
+  .wrapper #fixedBottomButton {
+    width: auto;
+    height: 35px;
+    font-size: 15px;
+    line-height: 1;
+  }
+  .wrapper #fixedBottomButton span {
+    display: unset;
+  }
+  .wrapper #fixedBottomButton i {
+    display: none;
+  }
+}
+
+/*# sourceMappingURL=website.css.map */

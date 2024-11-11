@@ -1,0 +1,17 @@
+{
+  "name": "scribe",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "auth:sass": "sass --watch public/scss/auth.scss public/css/auth.css",
+    "app:sass": "sass --watch public/scss/app.scss public/css/app.css",
+    "main:scss": "sass --watch public/scss/main.scss public/css/main.css",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
